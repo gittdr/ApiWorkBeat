@@ -1,0 +1,13 @@
+D:\Administracion\AplicacionesVS\ApiWorkBeat\ApiWorkBeat\bin\Debug\ApiWorkBeat.exe.config
+D:\Administracion\AplicacionesVS\ApiWorkBeat\ApiWorkBeat\bin\Debug\ApiWorkBeat.exe
+D:\Administracion\AplicacionesVS\ApiWorkBeat\ApiWorkBeat\bin\Debug\ApiWorkBeat.pdb
+D:\Administracion\AplicacionesVS\ApiWorkBeat\ApiWorkBeat\bin\Debug\RestSharp.dll
+D:\Administracion\AplicacionesVS\ApiWorkBeat\ApiWorkBeat\bin\Debug\RestSharp.xml
+D:\Administracion\AplicacionesVS\ApiWorkBeat\ApiWorkBeat\obj\Debug\ApiWorkBeat.csproj.AssemblyReference.cache
+D:\Administracion\AplicacionesVS\ApiWorkBeat\ApiWorkBeat\obj\Debug\ApiWorkBeat.csproj.SuggestedBindingRedirects.cache
+D:\Administracion\AplicacionesVS\ApiWorkBeat\ApiWorkBeat\obj\Debug\ApiWorkBeat.csproj.CoreCompileInputs.cache
+D:\Administracion\AplicacionesVS\ApiWorkBeat\ApiWorkBeat\obj\Debug\ApiWorkBeat.csproj.CopyComplete
+D:\Administracion\AplicacionesVS\ApiWorkBeat\ApiWorkBeat\obj\Debug\ApiWorkBeat.exe
+D:\Administracion\AplicacionesVS\ApiWorkBeat\ApiWorkBeat\obj\Debug\ApiWorkBeat.pdb
+D:\Administracion\AplicacionesVS\ApiWorkBeat\ApiWorkBeat\bin\Debug\Newtonsoft.Json.dll
+D:\Administracion\AplicacionesVS\ApiWorkBeat\ApiWorkBeat\bin\Debug\Newtonsoft.Json.xml
