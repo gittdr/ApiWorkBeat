@@ -11,9 +11,7 @@ namespace ApiWorkBeat.Models
         public int idTenant { get; set; }
         public int idPersona { get; set; }
         public string nombre { get; set; }
-
         public string Puesto { get; set; }
-
         public string RFC { get; set; }
         public string CURP { get; set; }
         public string NumEmpleado { get; set; }
@@ -21,8 +19,8 @@ namespace ApiWorkBeat.Models
         public string apellidoPat { get; set; }
         public string apellidoMat { get; set; }
         public string fechaIngreso { get; set; }
-        public double SalarioDiarioIntegrado { get; set; }
-        public double SalarioDiario { get; set; }
+        public decimal SalarioDiarioIntegrado { get; set; }
+        public decimal SalarioDiario { get; set; }
         public string GUID { get; set; }
         public string GUIDExpediente { get; set; }
         public string email { get; set; }

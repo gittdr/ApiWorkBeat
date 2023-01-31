@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,8 +12,9 @@ using System.Xml.Linq;
 
 namespace ApiWorkBeat
 {
-    internal class Program
+    public class Program
     {
+        public static FacLabControler facLabControler = new FacLabControler();
         static void Main(string[] args)
         {
             ObtenerToken();
@@ -45,6 +47,70 @@ namespace ApiWorkBeat
             request.AddHeader("Authorization", "Bearer " + token);
             RestResponse response = (RestResponse) client.Execute(request);
             var objResponse1 =JsonConvert.DeserializeObject<List<GetInfo>>(response.Content);
+            dynamic info = objResponse1;
+            //int total = Enumerable.Count(info);
+            //if (total > 6768)
+            //{
+
+            //}
+            foreach (var item in info)
+            {
+                int idTenant = item.idTenant;
+                int idPersona = item.idPersona;
+                string nombre = item.nombre;
+                string Puesto = item.Puesto;
+                string RFC = item.RFC;
+                string CURP = item.NumEmpleado;
+                string NumEmpleado = item.NumEmpleado;
+                string RegistroPatronal = item.RegistroPatronal;
+                string apellidoPat = item.apellidoPat;
+                string apellidoMat = item.apellidoMat;
+                string fechaIngreso = item.fechaIngreso;
+                decimal SalarioDiarioIntegrado = item.SalarioDiarioIntegrado;
+                decimal SalarioDiario = item.SalarioDiario;
+                string SGUID = item.GUID;
+                string GUIDExpediente = item.GUIDExpediente;
+                string email = item.email;
+                string pass = item.password;
+                string failedAttempts = item.failedAttempts;
+                string blockedUntil = item.blockedUntil;
+
+                //Aqui va el metodo para validar que no exista el idPersona
+                DataTable rtds = facLabControler.GetIdPersona(idPersona);
+                if (rtds.Rows.Count == 0)
+                {
+                    //Insertar idPersona
+                    facLabControler.InsertIdPersona(idTenant,idPersona,nombre,Puesto,RFC,
+                        CURP,NumEmpleado,RegistroPatronal,apellidoPat,apellidoMat,fechaIngreso,
+                        SalarioDiarioIntegrado,SalarioDiario,SGUID,GUIDExpediente,email,pass,failedAttempts,blockedUntil);
+                }
+             }
+        }
+        public void GetRazonesSociales(string token)
+        {
+            var client = new RestClient("https://api.workbeat.com/v2/adm/empleadosActivos");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", "Bearer " + token);
+            RestResponse response = (RestResponse)client.Execute(request);
+            var objResponse1 = JsonConvert.DeserializeObject<List<GetInfo>>(response.Content);
+            dynamic info = objResponse1;
+            foreach (var item in info)
+            {
+                int idTenant = item.idTenant;
+                int idPersona = item.idPersona;
+                string nombre = item.nombre;
+
+            }
+        }
+        public void GetMotivosBaja(string token)
+        {
+            var client = new RestClient("https://api.workbeat.com/v2/adm/empleadosActivos");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", "Bearer " + token);
+            RestResponse response = (RestResponse)client.Execute(request);
+            var objResponse1 = JsonConvert.DeserializeObject<List<GetInfo>>(response.Content);
             dynamic info = objResponse1;
             foreach (var item in info)
             {
