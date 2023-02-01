@@ -56,6 +56,7 @@
     <Compile Include="Models\FacLabControler.cs" />
     <Compile Include="Models\GetInfo.cs" />
     <Compile Include="Models\Models.cs" />
+    <Compile Include="Models\RazonSocial.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

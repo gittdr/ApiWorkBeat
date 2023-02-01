@@ -109,5 +109,42 @@ namespace ApiWorkBeat.Models
             }
 
         }
+        public void InsertRazonSocial(int idPersona,int idRazonSocial, string nombreR, string idEmpleado, int IdPuesto, int idPosicion)
+        {
+            string cadena2 = @"Data source=DESKTOP-DILD9U7\SQLEXPRESS; Initial Catalog=DBCARGA; User ID=jdev; Password=tdr123;Trusted_Connection=false;MultipleActiveResultSets=true";
+            //DataTable dataTable = new DataTable();
+
+            using (SqlConnection connection = new SqlConnection(cadena2))
+            {
+
+                using (SqlCommand selectCommand = new SqlCommand("sp_InsertRazonSocial", connection))
+                {
+
+                    selectCommand.CommandType = CommandType.StoredProcedure;
+                    selectCommand.CommandTimeout = 100000;
+                    selectCommand.Parameters.AddWithValue("@idPersona", (object)idPersona == null ? 0 : (object)idPersona);
+                    selectCommand.Parameters.AddWithValue("@idRazonSocial", (object)idRazonSocial == null ? 0 : (object)idRazonSocial);
+                    selectCommand.Parameters.AddWithValue("@nombreR", (object)nombreR == null ? "" : (object)nombreR);
+                    selectCommand.Parameters.AddWithValue("@idEmpleado", (object)idEmpleado == null ? "" : (object)idEmpleado);
+                    selectCommand.Parameters.AddWithValue("@IdPuesto", (object)IdPuesto == null ? 0 : (object)IdPuesto);
+                    selectCommand.Parameters.AddWithValue("@idPosicion", (object)idPosicion == null ? 0 : (object)idPosicion);
+
+                    try
+                    {
+                        connection.Open();
+                        selectCommand.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        string message = ex.Message;
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+
+        }
     }
 }

@@ -55,5 +55,9 @@ namespace ApiWorkBeat.Models
         failedAttempts,
         blockedUntil);
         }
+        public void InsertRazonSocial(int idPersona,int idRazonSocial,string nombreR,string idEmpleado,int IdPuesto,int idPosicion)
+        {
+            this.modelFact.InsertRazonSocial(idPersona,idRazonSocial,nombreR,idEmpleado,IdPuesto,idPosicion);
+        }
     }
 }

@@ -83,23 +83,30 @@ namespace ApiWorkBeat
                     facLabControler.InsertIdPersona(idTenant,idPersona,nombre,Puesto,RFC,
                         CURP,NumEmpleado,RegistroPatronal,apellidoPat,apellidoMat,fechaIngreso,
                         SalarioDiarioIntegrado,SalarioDiario,SGUID,GUIDExpediente,email,pass,failedAttempts,blockedUntil);
+                    GetRazonesSociales(token, idPersona);
                 }
              }
         }
-        public void GetRazonesSociales(string token)
+        public void GetRazonesSociales(string token,int idPersona)
         {
-            var client = new RestClient("https://api.workbeat.com/v2/adm/empleadosActivos");
+            string url1 = "https://api.workbeat.com/v2/adm/empleados/";
+            string url2 = "/RazonesSociales";
+            var client = new RestClient(url1+idPersona+url2);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             request.AddHeader("Authorization", "Bearer " + token);
             RestResponse response = (RestResponse)client.Execute(request);
-            var objResponse1 = JsonConvert.DeserializeObject<List<GetInfo>>(response.Content);
+            var objResponse1 = JsonConvert.DeserializeObject<List<RazonSocial>>(response.Content);
             dynamic info = objResponse1;
             foreach (var item in info)
             {
-                int idTenant = item.idTenant;
-                int idPersona = item.idPersona;
-                string nombre = item.nombre;
+                int idRazonSocial = item.idRazonSocial;
+                string nombreR = item.nombre;
+                string idEmpleado = item.idEmpleado;
+                int IdPuesto = item.IdPuesto;
+                int idPosicion = item.idPosicion;
+
+                facLabControler.InsertRazonSocial(idPersona,idRazonSocial,nombreR,idEmpleado,IdPuesto,idPosicion);
 
             }
         }

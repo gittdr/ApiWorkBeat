@@ -27,5 +27,7 @@ namespace ApiWorkBeat.Models
         public string password { get; set; }
         public string failedAttempts { get; set; }
         public string blockedUntil { get; set; }
+        public RazonSocial razonsocial { get; set; }
+       
     }
 }
