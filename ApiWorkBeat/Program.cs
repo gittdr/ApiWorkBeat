@@ -36,7 +36,8 @@ namespace ApiWorkBeat
             dynamic resp = JObject.Parse(response.Content);
             string token = resp.access_token;
             Program obj = new Program();
-            obj.GetEmpleadosActivos(token);
+            //obj.GetEmpleadosActivos(token);
+            obj.GetMovimientosPersonal(token);
 
         }
         public void GetEmpleadosActivos(string token)
@@ -124,6 +125,29 @@ namespace ApiWorkBeat
                 int idTenant = item.idTenant;
                 int idPersona = item.idPersona;
                 string nombre = item.nombre;
+
+            }
+        }
+        public void GetMovimientosPersonal(string token)
+        {
+            var client = new RestClient("https://api.workbeat.com/v3/adm/movimientosPersonal");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", "Bearer " + token);
+            RestResponse response = (RestResponse)client.Execute(request);
+            var objResponse1 = JsonConvert.DeserializeObject<List<MovimientosPersonal>>(response.Content, new JsonSerializerSettings() { Error = (sender, error) => error.ErrorContext.Handled = true });
+            dynamic info = objResponse1;
+            foreach (var item in info)
+            {
+                int idEmpleado = item.idEmpleado;
+                string nombre = item.nombre; 
+                string apellidoPat = item.apellidoPat;
+                string apellidoMat = item.apellidoMat;
+                string fecha = item.fecha;
+                string tipoMovimiento = item.tipoMovimiento;
+
+
+                //facLabControler.InsertRazonSocial(idPersona, idRazonSocial, nombreR, idEmpleado, IdPuesto, idPosicion);
 
             }
         }

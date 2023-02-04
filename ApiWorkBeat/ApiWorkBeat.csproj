@@ -53,9 +53,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\AtributoDefault.cs" />
+    <Compile Include="Models\DatosNomina.cs" />
     <Compile Include="Models\FacLabControler.cs" />
     <Compile Include="Models\GetInfo.cs" />
     <Compile Include="Models\Models.cs" />
+    <Compile Include="Models\MovimientosPersonal.cs" />
+    <Compile Include="Models\Posicion.cs" />
     <Compile Include="Models\RazonSocial.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
