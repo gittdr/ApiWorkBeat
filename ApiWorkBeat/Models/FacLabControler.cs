@@ -59,5 +59,26 @@ namespace ApiWorkBeat.Models
         {
             this.modelFact.InsertRazonSocial(idPersona,idRazonSocial,nombreR,idEmpleado,IdPuesto,idPosicion);
         }
+
+        public void InsertDatosNomina(int idEmpleado, int idRazonSocial, string RazonSocial, string rfcRazonSocial, string fechaBajaRazonSocial, int estatus, string numeroEmpleado)
+        {
+            this.modelFact.InsertDatosNomina(idEmpleado,idRazonSocial,RazonSocial,rfcRazonSocial,fechaBajaRazonSocial,estatus,numeroEmpleado);
+        }
+        public void InsertAtributoDefault(int idP, string nombreAtributo, string referencia, string nombreA)
+        {
+            this.modelFact.InsertAtributoDefault(idP, nombreAtributo, referencia, nombreA);
+        }
+        public void InsertPosiciones(int idEmpleado, int idP, string nombreP, string nombreOrganizacionP, string codigoP)
+        {
+            this.modelFact.InsertPosiciones(idEmpleado, idP, nombreP, nombreOrganizacionP, codigoP);
+        }
+        public void InsertMovimientosPersonal(int idEmpleado, string nombre, string apellidoPat, string apellidoMat, string fecha, string tipoMovimiento, string motivoBaja, int idCausaBajaIMSS, int causaBajaIMSS, string observaciones, string fechaBaja, string fechaCaptura, string fechaIngresoPosicion, string fechaIngresoOrganizacion)
+        {
+            this.modelFact.InsertMovimientosPersonal(idEmpleado, nombre, apellidoPat, apellidoMat, fecha, tipoMovimiento, motivoBaja, idCausaBajaIMSS, causaBajaIMSS, observaciones, fechaBaja, fechaCaptura, fechaIngresoPosicion, fechaIngresoOrganizacion);
+        }
+        public void UpdateDataMP()
+        {
+            this.modelFact.UpdateDataMP();
+        }
     }
 }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -17,7 +18,9 @@ namespace ApiWorkBeat
         public static FacLabControler facLabControler = new FacLabControler();
         static void Main(string[] args)
         {
+            facLabControler.UpdateDataMP();
             ObtenerToken();
+            
         }
         public static void ObtenerToken()
         {
@@ -39,6 +42,74 @@ namespace ApiWorkBeat
             //obj.GetEmpleadosActivos(token);
             obj.GetMovimientosPersonal(token);
 
+        }
+        public void GetMovimientosPersonal(string token)
+        {
+            var client = new RestClient("https://api.workbeat.com/v3/adm/movimientosPersonal");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", "Bearer " + token);
+            RestResponse response = (RestResponse)client.Execute(request);
+            var objResponse1 = JsonConvert.DeserializeObject<List<MovimientosPersonal>>(response.Content, new JsonSerializerSettings() { Error = (sender, error) => error.ErrorContext.Handled = true });
+            dynamic info = objResponse1;
+            foreach (var item in info)
+            {
+                int idEmpleado = item.idEmpleado;
+                string nombre = item.nombre;
+                string apellidoPat = item.apellidoPat;
+                string apellidoMat = item.apellidoMat;
+                string fecha = item.fecha;
+                string tipoMovimiento = item.tipoMovimiento;
+
+                //POSICION
+                dynamic infor = item.posicion;
+                foreach (var items in infor)
+                {
+                    int idP = items.id;
+                    string nombreP = items.nombre;
+                    string nombreOrganizacionP = items.nombreOrganizacion;
+                    string codigoP = items.codigo;
+                    //AQUI VA LA TABLA PARA INSERTAR EN LA TABLA POSICION
+                    facLabControler.InsertPosiciones(idEmpleado, idP, nombreP, nombreOrganizacionP, codigoP);
+                    //ATRIBUTODEFAULT
+                    dynamic datas = items.atributoDefault;
+                    foreach (var Aitem in datas)
+                    {
+                        string nombreAtributo = Aitem.nombreAtributo;
+                        string referencia = Aitem.referencia;
+                        string nombreA = Aitem.nombre;
+                        //AQUI VA EL METODO PARA INSERTAR EN LA TABLA DE ATRIBUTODEFAULT
+                        facLabControler.InsertAtributoDefault(idP, nombreAtributo, referencia, nombreA);
+
+                    }
+                }
+                string motivoBaja = item.motivoBaja;
+                int idCausaBajaIMSS = item.idCausaBajaIMSS /*? null : item.idCausaBajaIMSS  = 0*/;
+                int causaBajaIMSS = item.causaBajaIMSS /*? null : item.causaBajaIMSS = 0*/;
+                string observaciones = item.observaciones;
+                string fechaBaja = item.fechaBaja;
+                string fechaCaptura = item.fechaCaptura;
+                string fechaIngresoPosicion = item.fechaIngresoPosicion;
+                string fechaIngresoOrganizacion = item.fechaIngresoOrganizacion;
+                
+                //DATOSNOMINA
+                dynamic ddatos = item.datosNomina;
+                foreach (var Ditem in ddatos)
+                {
+                    int idRazonSocial = Ditem.idRazonSocial;
+                    string RazonSocial = Ditem.RazonSocial;
+                    string rfcRazonSocial = Ditem.rfcRazonSocial;
+                    string fechaBajaRazonSocial = Ditem.fechaBajaRazonSocial;
+                    int estatus = Ditem.estatus;
+                    string numeroEmpleado = Ditem.numeroEmpleado;
+                    //AQUI VA EL METODO PARA INSERTAR EN LA TABLA DATOSNOMINA
+                    facLabControler.InsertDatosNomina(idEmpleado, idRazonSocial, RazonSocial, rfcRazonSocial, fechaBajaRazonSocial, estatus,numeroEmpleado);
+                }
+
+                //AQUI VA EL METODO PARA INSERTAR EN LA TABLA MOVIMIENTOSPERSONAL
+                facLabControler.InsertMovimientosPersonal(idEmpleado, nombre, apellidoPat, apellidoMat, fecha, tipoMovimiento, motivoBaja, idCausaBajaIMSS, causaBajaIMSS, observaciones, fechaBaja, fechaCaptura, fechaIngresoPosicion, fechaIngresoOrganizacion);
+
+            }
         }
         public void GetEmpleadosActivos(string token)
         {
@@ -128,28 +199,6 @@ namespace ApiWorkBeat
 
             }
         }
-        public void GetMovimientosPersonal(string token)
-        {
-            var client = new RestClient("https://api.workbeat.com/v3/adm/movimientosPersonal");
-            client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("Authorization", "Bearer " + token);
-            RestResponse response = (RestResponse)client.Execute(request);
-            var objResponse1 = JsonConvert.DeserializeObject<List<MovimientosPersonal>>(response.Content, new JsonSerializerSettings() { Error = (sender, error) => error.ErrorContext.Handled = true });
-            dynamic info = objResponse1;
-            foreach (var item in info)
-            {
-                int idEmpleado = item.idEmpleado;
-                string nombre = item.nombre; 
-                string apellidoPat = item.apellidoPat;
-                string apellidoMat = item.apellidoMat;
-                string fecha = item.fecha;
-                string tipoMovimiento = item.tipoMovimiento;
-
-
-                //facLabControler.InsertRazonSocial(idPersona, idRazonSocial, nombreR, idEmpleado, IdPuesto, idPosicion);
-
-            }
-        }
+        
     }
 }

@@ -16,12 +16,12 @@ namespace ApiWorkBeat.Models
         public string tipoMovimiento { get; set; }
         public List<Posicion> posicion { get; set; }
         public string motivoBaja { get; set; }
-        public int? idCausaBajaIMSS { get; set; }
-        public int? causaBajaIMSS { get; set; }
+        public int idCausaBajaIMSS { get; set; }
+        public int causaBajaIMSS { get; set; }
         public string observaciones { get; set; }
         public string fechaBaja { get; set; }
         public string fechaCaptura { get; set; }
-        public string fechaIngresoPosición { get; set; }
+        public string fechaIngresoPosicion { get; set; }
         public string fechaIngresoOrganizacion { get; set; }
         public List<DatosNomina> datosNomina { get; set; }
 
